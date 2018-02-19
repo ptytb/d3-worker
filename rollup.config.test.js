@@ -2,7 +2,7 @@ import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 
 export default {
-    input: 'test/renderTest.js',
+    input: 'docs/renderTest.js',
     output: [
         {
             file: "dist/test_render.js",

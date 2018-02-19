@@ -1,6 +1,6 @@
 # d3-worker
 
-![preview](doc/scr.gif)
+![preview](docs/scr.gif)
 
 ```html
 <head>
