@@ -2,10 +2,10 @@ import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 
 export default {
-    input: 'test/test.js',
+    input: 'test/renderTest.js',
     output: [
         {
-            file: "build/test.js",
+            file: "dist/test_render.js",
             format: 'umd',
             name: 'TestBundle'
         },

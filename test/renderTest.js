@@ -1,23 +1,20 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(factory.call(global));
-}(this, (function () { 'use strict';
+import { BaseRenderer } from '../src/baseRenderer';
+import 'd3';
 
-    function sizeHint(size) {
-        if (self && typeof self.postMessage === 'function') {
-            self.postMessage({ type: 'sizeHint', size: size })
-        }
+export class Render extends BaseRenderer {
+    constructor() {
+        super();
+        this.register();
     }
 
-    function load(data) {
+    load(data) {
         let matrix = data;
         return {
             matrix: matrix
         };
     }
 
-    function render(config) {
+    render(config) {
         let model, sortBy, svg;
 
         ({ svg, model, sortBy } = config);
@@ -43,7 +40,7 @@
             .attr('width', screen.width + margin.left + margin.right)
             .attr('height', screen.height + margin.top + margin.bottom);
 
-        sizeHint(screen);
+        super.sizeHint(screen);
 
         area
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -61,9 +58,9 @@
                 .range([0, 27]);
 
         // Scale for random position
-        let randomPosition = function(d) {
+        let randomPosition = function() {
             return Math.random() * 1024;
-        }
+        };
 
         let tcColours = ['#FDBB30', '#EE3124', '#EC008C', '#F47521', '#7AC143', '#00B0DD'];
         let randomTcColour = function() {
@@ -87,7 +84,6 @@
                     .attr('y', randomPosition)
                     .style('fill', tcColours[randomTcColour()]);
 
-
             baseCircle.enter()
                     .append('circle')
                     .attr('r', xr)
@@ -96,14 +92,12 @@
                     .attr('fill', "none")
                     .attr("stroke-width", 4)
                     .style('stroke', tcColours[randomTcColour()]);
-        }
+        };
 
         update();
 
         console.log('Rendering finished in ' + (Date.now() - startTime) + ' ms.');
     }
+}
 
-    let context = (typeof this !== 'undefined' ? this : self);
-    context.render = render;
-    context.load = load;
-})));
+new Render();

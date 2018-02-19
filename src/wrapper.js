@@ -57,14 +57,28 @@ if (!window.Worker) {
     console.error('No worker support!');
 }
 
-if (typeof document !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', function () {
+function getTemplate() {
+    let template = document.createElement('template');
+    template.id = 'd3-worker-template';
 
-        let template = document.createElement('template');
-        template.id = 'd3-worker-template';
-        let rootDiv = document.createElement('div');
-        template.content.appendChild(rootDiv);
-        document.body.appendChild(template);
+    let style = document.createElement('style');
+    template.appendChild(style);
+    style.type = 'text/css';
+    // style.styleSheet.cssText = ':host { all: initial; }';
+    style.innerHTML = ':host { all: initial; }';
+
+    let rootDiv = document.createElement('div');
+    template.content.appendChild(rootDiv);
+    // document.body.appendChild(template);
+    document.importNode(template);
+
+    return template;
+}
+
+if (typeof document !== 'undefined') {
+    let template = getTemplate();
+
+    document.addEventListener('DOMContentLoaded', function () {
 
         customElements.define('d3-worker',
             class extends HTMLElement {
@@ -166,6 +180,10 @@ export function wrap(container, config, component) {
 
             component.spinner.stop();
             semaphore.free();
+
+            if ('terminate' in renderer && typeof renderer.terminate === 'function') {
+                renderer.terminate();
+            }
         };
 
         function update() {
@@ -220,6 +238,7 @@ export function wrap(container, config, component) {
                             };
 
                             context = { render: undefined, load: undefined };
+                            console.log(context);
                             evalInContext(xhr.responseText, context);
                             render();
                         });

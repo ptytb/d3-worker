@@ -41,8 +41,9 @@ export function createNode (type, doc, data) {
 }
 
 export function toDOM (obj, parent, doc) {
+    let node;
     if (obj.nodeType) {
-        var node = createNode(obj.nodeType, doc, obj);
+        node = createNode(obj.nodeType, doc, obj);
         parent.appendChild(node);
     } else {
         return false;
