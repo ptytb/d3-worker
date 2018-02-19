@@ -6,7 +6,7 @@
   "scripts": {
     "test": "rollup -c rollup.config.test.js",
     "build": "rollup -c rollup.config.worker.js && rollup -c rollup.config.page.js",
-    "uglify": "uglifyjs dist/d3-worker.js -cmo dist/d3-worker.min.js && uglifyjs dist/d3-worker-wrapper.js -cmo dist/d3-worker-wrapper.min.js"
+    "uglify": "uglifyjs dist/d3-worker.js -cmo dist/d3-worker.min.js && uglifyjs dist/d3-worker-wrapper.js -cmo dist/d3-worker-wrapper.min.js && uglifyjs dist/test_render.js -cmo dist/test_render.min.js"
   },
   "repository": {
     "type": "git",
