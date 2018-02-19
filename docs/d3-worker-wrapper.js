@@ -17629,7 +17629,7 @@ if (typeof document !== 'undefined') {
 function wrap(container, config, component) {
     return ((container, config, component) => {
 
-        let renderer = new Worker('/dist/d3-worker.js');
+        let renderer = new Worker('d3-worker.js');
 
         let context = undefined;
         let renderBy = 'worker';
